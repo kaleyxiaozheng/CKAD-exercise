@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: busybox
+      image: busybox:stable
+      command: ["sh", "-c", "echo $MESSAGE; cat /config/app.cfg"]
+      env:
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: message
+      volumeMounts:
+        - name: config
+          mountPath: /config
+  volumes:
+    - name: config
+      configMap:
+        name: my-configmap
+        items:
+          - key: app.cfg
+            path: app.cfg
+# /*****************************************************************************************************************************
+# 1. line 11 to line 16: to access ConfigMap data using environment variables
+# 2. line 17 to line 26: to access ConfigMap data using volume mounts
+# 2. line 25 to line 25: items is optional. If I don't specify this, every top-level key in my-configmap ConfigMap will
+#               become a file that is mounted to this container. But If I set up items hrere, I can choose only specific keys.
+# 3. line 26: path is going to determine the filename that will be visible to the container.
+#
+# Steps to set up volume mounts
+# 1. set up volumes from line 20 to line 26
+# 2. set up volumeMounts from line 17 to line 19
+# *****************************************************************************************************************************/

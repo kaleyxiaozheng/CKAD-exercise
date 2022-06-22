@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: service-server
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+# /******************************************************************************************************************************
+# 1. We can remove line 6 as ClusterIP is the default Service type.
+# 2. The selector determines which Pods this Service is going to route traffic to.
+#    Since the replicas of Pods will have same label of service-server, so this Service will route traffic to those Pods with
+#    with service-server label.
+# 3. Line 11: the port filed specifies the actual port that the Service itself listens on. Clients commumicating with the
+#             Service will need to use port 8080.
+# 4. Line 12: the targetPort specifies the port where the traffic is going to be routed to the underlying Pods.
+#             So the nginx Pods are listening on port 80, and that is going to be the target port.
+# Note: the targetPort is that the underlying Pods are listening on. And if we are communicating through the Service,
+#       we will use whatever port is specified in port filed (line 11)
+# ******************************************************************************************************************************/

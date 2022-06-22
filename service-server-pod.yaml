@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: service-server-pod
+  labels:
+    app: service-server
+spec:
+  containers:
+    - name: nginx
+      image: nginx:stable
+      ports:
+        - containerPort: 80
+# /******************************************************************************************************************************
+# 1. I can create multiple replicas of this Pod using Deployment.
+# 2. I will use lables: app: service-server to create a Service that will route traffic to this Pod.
+# ******************************************************************************************************************************/

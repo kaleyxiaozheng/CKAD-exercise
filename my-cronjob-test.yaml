@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-cronjob-test
+spec:
+  schedule: "1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: print
+              image: busybox:stable
+              command: ["echo", "This is my crobjob test!"]
+          restartPolicy: Never
+      backoffLimit: 4
+      activeDeadlineSeconds: 10

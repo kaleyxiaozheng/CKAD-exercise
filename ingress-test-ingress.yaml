@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hive-io-frontend-ingress
+  namespace: hive
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: hive.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hive-io-frontend-svc
+                port:
+                  number: 8080
+# /*****************************************************************************************************************************
+# 1. Line 6: it basically tells the cluter which Ingress controller to use in order to interact with this actual Ingress.
+#            So I am going to set up Ingress controller called the nginx Ingress controller. Line 6 will be the name of the
+#            nginx controller.
+# 2. Line 7 to line 17 are the Ingress rules: they take incoming requests and then route them to the appropriate destination.
+#                                             If we make a request to ingresstest.acloud.guru domain, it is going to be picked
+#                                             by this rule and routed to the appropriate backend.
+# 3. Line 9: this is a HTTP rule.
+# 4. Line 13 to line 17: the backend, which is going to be the Service.
+# *****************************************************************************************************************************/

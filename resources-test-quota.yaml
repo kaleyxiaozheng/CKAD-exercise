@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resources-test-quota
+  namespace: resources-test
+spec:
+  hard:
+    requests.memory: 128Mi
+    requests.cpu: 500m
+    limits.memory: 256Mi
+    limits.cpu: "1" # 1 entire CPU core
+# /*********************************************************************************************************
+# the ResourceQuota interacts with the resource requests and limits that are set on my various containers.
+# Essentially, this provides an upper limit for each of these values aggregated across the entire Namespace.
+# *********************************************************************************************************/

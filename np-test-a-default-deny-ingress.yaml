@@ -1,0 +1,9 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-test-a-default-deny-ingress # this NetworkPolicy will deny all traffic by default
+  namespace: np-test-a
+spec:
+  podSelector: {} # {} will select all Pods in the Namespace, in short, all Pods in the Namespace
+  policyTypes:
+    - Ingress # incoming traffic

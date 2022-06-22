@@ -1,0 +1,28 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: beehives.acloud.guru # name must match a specific format. It has to begin with this plural,
+spec: # followed by a dot and the group.
+  group: acloud.guru # related to the organisation that owns or manages.
+  names:
+    plural: beehives # line 8, 9, and 12 will allow to do kubectl get beehives/beehive/hive to
+    singular: beehive # get the lists of the objects that are deined by the CRD.
+    kind: BeeHive # when I create yaml file for one of these beehive objects, this is the kind that I will use.
+    shortNames:
+      - hive
+  scope: Namespaced # means this CRD is only going to be active within a specific Namespace.
+  versions: # can define multi verions, only 1 version can have storage set to true
+    - name: v1
+      served: true # Means that the API server will serve this version.
+      storage: true # Means that the API server is going to use this version to store the data for our objects behind the scenes.
+      schema: # defines the data fields that are available for our custom object.
+        openAPIV3Schema:
+          type: object
+          properties: # there are the properties that my object is going to have.
+            spec:
+              type: object
+              properties: # A beehive object will include information about the number of supers and the number of bees in that hive.
+                supers:
+                  type: integer
+                bees:
+                  type: integer

@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: np-test-client-allow
+  namespace: np-test-a
+spec:
+  podSelector:
+    matchLabels:
+      app: np-test-server
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              team: cteam
+          podSelector:
+            matchLabels:
+              app: np-test-client
+      ports:
+        - protocol: TCP
+          port: 80
+# /******************************************************************************************************************************
+# 1. This network policy specifically allows the traffic that we want to allow.
+# 2. Line 8 and line 9: we will select Pod based on the labels
+# 3. Line 12 to line 22: defines Ingress rules, these rules define what type of traffic is allowed by this policy.
+# ******************************************************************************************************************************/

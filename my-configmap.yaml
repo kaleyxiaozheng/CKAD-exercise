@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  message: Hellp, World!
+  app.cfg: | # |-pile allows to do multi-line data with lines 8-10 indented under app.cfg
+    # A configuration file!  
+    key1=value1
+    key2=value2
+
+# ConfigMap can be used to manage just individual pieces of data like line 6
+# in a key-value format, or the data like a configuration file like line 7 to 10

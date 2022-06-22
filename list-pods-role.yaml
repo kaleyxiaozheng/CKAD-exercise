@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: list-pods-role # this role will give users ability to list Pods.
+rules:
+  - apiGroups: [""] # apiGroups is blank because Pods are part of the core API, no need to specify a special API group there.
+    resources: ["pods"] # resources is the type of Kubernetes object that we are going to act on.
+    verbs: ["list"] # verbs is what we can do with that object.
